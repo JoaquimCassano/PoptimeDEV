@@ -16,11 +16,10 @@ def Describe(url:str) -> tuple[str, str, str]:
         tuple[str, str, str]: A tuple containing the generated caption for the image, the extracted text from OCR, and the URL of the image.
     """
     DESCRIBING_MODEL = "https://soumnerd-salesforce-blip-image-captioning-large.hf.space/"
-    headers = {"Authorization": secrets['huggingface']}
 
     def describeIMG():
 
-        client = Client(DESCRIBING_MODEL, verbose=False)
+        client = Client(DESCRIBING_MODEL, verbose=False, hf_token=secrets['huggingface'])
         result = client.predict(
                         url,	# str (filepath or URL to image) in '请选择一张图片' Image component
                         fn_index=0
@@ -30,14 +29,14 @@ def Describe(url:str) -> tuple[str, str, str]:
     text = api.ocr_url(url)
     return (caption, text, url)
 
-def AiResponse(messages:list, model:Literal["gpt-3.5-turbo-0613", "gpt-4", "SOLAR-0-70b-16bit"]) -> str:
+def AiResponse(messages:list, model:Literal["gpt-3.5-turbo-0613", "gpt-4", "SOLAR-0-70b-16bit"]) -> str: # type: ignore
     if model != "SOLAR-0-70b-16bit":
         openai.api_key = secrets["openai"]
         resp = openai.ChatCompletion.create(
             model=model,
             messages=messages,
         )
-        return resp['choices'][0]['message']['content']
+        return resp['choices'][0]['message']['content'] # type: ignore
 
     
 
