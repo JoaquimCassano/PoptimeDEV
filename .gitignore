@@ -1,0 +1,5 @@
+# gitignore
+secrets.json
+tests/
+session.tw_session
+__pycache__/
