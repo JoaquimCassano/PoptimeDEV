@@ -1,6 +1,6 @@
-# Twitter Gossip Bot
+# Twitter AI Bot
 
-Este projeto é um bot de Twitter que analisa a timeline de um grupo de amigos programadores, chamado "choqueidabolha". O bot identifica 'tretas' ou discussões interessantes e cria um tweet noticiando a mesma.
+Este projeto é um bot de Twitter que analisa a timeline da bolha dev do twitter. O bot identifica 'tretas' ou discussões interessantes e cria um tweet noticiando a mesma.
 
 ## Como funciona
 
