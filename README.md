@@ -23,16 +23,11 @@ O bot também pode postar threads interessantes sobre programação para ajudar 
 3. Configure o arquivo `secrets.json` com suas credenciais do Twitter e da OpenAI.
 4. Execute o arquivo `main.py` para iniciar o bot.
 
-## Dependências
-
-- Python 3.8+
-- tweety
-- openai
-- ocrspace
-- gradio_client
-- requests
-- tweety
 
 ## Aviso
 
 Este bot foi criado para fins de entretenimento e não deve ser usado para espalhar informações falsas ou enganar pessoas. Use com responsabilidade.
+
+## Contribuindo
+
+*Sinta-se livre para ajudar o projeto! Seja noticiando bugs e pedindo features nas issues, ou já dando aquele pull request massa, precisamos sempre de ajuda!*
