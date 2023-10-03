@@ -3,10 +3,10 @@
 Este projeto é um bot de Twitter que analisa a timeline da bolha dev do twitter. O bot identifica 'tretas' ou discussões interessantes e cria um tweet noticiando a mesma.
 
 ## TODO:
-[ ] Permitir interações (A IA seguir pessoas, e comentar, interagindo com o público)
-[ ] Melhorar error handling
-[ ] Tornar a descrição de imagens assíncrona pra poupar tempo 
-[ ] Subir o código para nuvem, para eu não ter que rodar ele local
+- Permitir interações (A IA seguir pessoas, e comentar, interagindo com o público
+- Melhorar error handling
+- Tornar a descrição de imagens assíncrona pra poupar tempo 
+- Subir o código para nuvem, para eu não ter que rodar ele local
 
 ## Como funciona
 
