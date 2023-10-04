@@ -1,4 +1,5 @@
 from tweety import Twitter ; import os, requests, json
+
 secrets = json.load(open('secrets.json'))
 
 
@@ -9,10 +10,11 @@ app.sign_in(secrets["twitter"]["login"], secrets["twitter"]["passwd"])
 def TimeLine():
     return app.get_home_timeline(1).tweets
 
+
 def MyTweets():
     return app.user(1).tweets # type:ignore
 
-def Post(text:str, medias:list[str]) -> int|tuple[int, str]:
+def Post(text:str, medias:list[str], quote:None|str = None) -> int|tuple[int, str]:
     """
     Posts a text and media files to the app.
 

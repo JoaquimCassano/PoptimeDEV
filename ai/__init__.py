@@ -29,7 +29,7 @@ def Describe(url:str) -> tuple[str, str, str]:
     text = api.ocr_url(url)
     return (caption, text, url)
 
-def AiResponse(messages:list, model:Literal["gpt-3.5-turbo-0613", "gpt-4", "SOLAR-0-70b-16bit"]) -> str: # type: ignore
+def AiResponse(messages:list, model:Literal["gpt-3.5-turbo-0613", "gpt-4", "SOLAR-0-70b-16bit", "gpt-3.5-turbo-16k"]) -> str: # type: ignore
     if model != "SOLAR-0-70b-16bit":
         openai.api_key = secrets["openai"]
         resp = openai.ChatCompletion.create(

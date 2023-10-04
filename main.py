@@ -1,5 +1,4 @@
 import twitter, ai, time, json
-from twitter import app
 
 log = [
     {"role":"user", "content":"""Vamos imaginar que você é o back-end de um bot de twitter, mais especificamente um bot de fofocas para um grupo de amigos programadores, chamado "choqueidabolha". Você receberá diversos tweets da sua timeline, e irá analisar quando temos 'tretas'. Quando tivermos tretas, você irá criar um tweet noticiando a mesma. Como sabemos que você não tem capacidade de ver imagens, você sempre receberá uma tupla invés delas.  A tupla tem respectivamente: a descrição da imagem, todo o texto nela (via ocr), e por útlimo o url dela. 
@@ -19,16 +18,18 @@ log = [
      Lembre-se sempre de considerar as personalidades de cada um antes de anunciar algo. Por exemplo, um dev front-end como o lucianodiisouza não criticaria devs front-end
      
      Caso tenhamos tweets maneiros, como threads etc. Também vale a pena postar, para ajudar a engajar. Nesses casos, coloque o link do tweet no conteúdo do post. Mas só fale de threads sobre programação
+     Por favor, considere tudo isso dito acima, é importantíssimo que você obedeça rigorosamente a essas regras.
 
      Nunca faça mais de um post da mesma treta. Tretas já comentadas, portanto NÃO POSTE SOBRE O QUE ESTÁ A SEGUIR: 
 
+    Por favor, raciocine antes de postar. Evite inventar informações que não estiverem explícitas em alguma parte do json. Você consegue, leve o tempo que precisar.     
      
-    Por favor, considere tudo isso dito acima, é importantíssimo que você obedeça rigorosamente a essas regras.
+     Lembre que os tweets precisam ser muito curtos. frases pequenas
      """},
-    {"role":"assistant", "content":"Eu entendi. Vou seguir tudo citado acima, exatamente como você deseja. Por favor, me envie o json da timeline para que eu possa ou não gerar um tweet"}
+    {"role":"assistant", "content":"Eu entendi. Vou seguir tudo citado acima, exatamente como você deseja. Ou seja, não postarei sobre as tretas que eu mesmo já postei, não inventarei tretas sem sentido, e não farei posts sem sentido (como um post que diz que o lucianodiisouza criticou devs front-end, já que ele é front-end). Além disso, sei que tudo isso é um grupo de amigos e palavrões e piadas pesadas são algo comum, que não é absurdo e não deve ser noticiado. Por favor, me envie o json da timeline para que eu possa ou não gerar um tweet"}
 ]
 
-for index, i in enumerate(app.get_tweets("choqueidabolha")):
+for index, i in enumerate(twitter.app.get_tweets("poptimedev")):
     if index > 10:
         break
     log[0]['content'] += f'\n {i.text}'
@@ -43,15 +44,16 @@ while True:
         for media in tweet.media:
             if media.type == "photo":
                 medias.append(ai.Describe(media.media_url_https))
-        formatted_tl.append({"id":tweet.id, "text":tweet.text, "author":tweet.author.username, "medias":medias, "url": tweet.url})
+        formatted_tl.append({"id":tweet.id, "text":tweet.text, "author":f'@{tweet.author.username}', "medias":medias, "url": tweet.url})
     print(formatted_tl)
     log.append({"role":"user", "content":str(formatted_tl)})
-    response = ai.AiResponse(log, model="gpt-3.5-turbo-0613")
+    response = ai.AiResponse(log, model="gpt-3.5-turbo-16k")
     print(response)
     log.append({"role":"assistant", "content":response})
-    if response.lower().lstrip() not in ["pass", '"pass"']:
+    if response.lower().lstrip() in ["pass", '"pass"']:
         data = json.loads(response)
         confirm = input("Postar? [y/n]")
         if confirm.lower().strip() == "y":
-            twitter.Post(f'{data["text"]} \n \n \n Aviso: Post gerado por inteligência artificial sem revisão. Pode ter informações falsas e/ou duvidosas. Caso algum problema, favor contatar no direct', data["medias"])
-    time.sleep(900)
+
+            print(twitter.Post(data["text"] , data['medias']))
+    time.sleep(90)
