@@ -3,3 +3,5 @@ secrets.json
 tests/
 session.tw_session
 __pycache__/
+.vscode/
+.pull/
