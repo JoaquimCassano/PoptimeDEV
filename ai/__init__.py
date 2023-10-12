@@ -20,7 +20,7 @@ def Describe(url:str) -> tuple[str, str, str]:
 
     def describeIMG():
 
-        client = Client(DESCRIBING_MODEL, verbose=False, hf_token=secrets['huggingface'])
+        client = Client(DESCRIBING_MODEL, verbose=False)
         result = client.predict(
                         url,	# str (filepath or URL to image) in '请选择一张图片' Image component
                         fn_index=0
