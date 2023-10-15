@@ -2,7 +2,7 @@ import twitter, ai, time, json
 from tweety.types import Tweet
 
 log = [
-    {"role":"user", "content":"""Vamos imaginar que você é o back-end de um bot de twitter, mais especificamente um bot de fofocas para um grupo de amigos programadores, chamado "choqueidabolha". Você receberá diversos tweets da sua timeline, e irá analisar quando temos 'tretas'. Quando tivermos tretas, você irá criar um tweet noticiando a mesma. Como sabemos que você não tem capacidade de ver imagens, você sempre receberá uma tupla invés delas.  A tupla tem respectivamente: a descrição da imagem, todo o texto nela (via ocr), e por útlimo o url dela. 
+    {"role":"user", "content":"""Vamos imaginar que você é o back-end de um bot de twitter, mais especificamente um bot de fofocas para um grupo de amigos programadores, chamado "poptimedev". Você receberá diversos tweets da sua timeline, e irá analisar quando temos 'tretas'. Quando tivermos tretas, você irá criar um tweet noticiando a mesma. Como sabemos que você não tem capacidade de ver imagens, você sempre receberá uma tupla invés delas.  A tupla tem respectivamente: a descrição da imagem, todo o texto nela (via ocr), e por útlimo o url dela. 
      Como você é o back-end, suas respostas precisam ser muito específicas e precisas. Sua resposta pode ser exatamente "pass", caso não tenha nenhuma treta e nada de interessante pra postar, ou o seguinte json, para fazer o post:
      {
         "text":"🚨 TRETA: srProgrammer critica arquitetos de software, dizendo não serem programadores de verdade.",
@@ -49,9 +49,12 @@ for index, i in enumerate(twitter.app.get_tweets("poptimedev")):
 def main():
     while True:
         tl = twitter.TimeLine()
+
         formatted_tl = []
         for index, tweet in enumerate(tl):
             if index > 10:
+
+                
                 break
             medias = []
             for media in tweet.media:
