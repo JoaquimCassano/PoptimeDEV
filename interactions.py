@@ -44,7 +44,6 @@ class Agent:
             except Exception as e:
                 with open("error.txt", "w") as f:
                     f.write(str(e))
-                pass
                 
         nonRepliedTweets = [tweet for tweet in nonRepliedTweets if tweet not in self.old_notifications]
         self.old_notifications = nonRepliedTweets
@@ -57,19 +56,19 @@ class Agent:
         Returns:
             - ArvoreTweets: A tree with the parents. Starts in the root of the conversation (the post) and ends in the reply (the tweet arg)
         """
-        
+        print('Called!')
         def build_tree(tweet: Tweet) -> ArvoreTweets:
             tree = ArvoreTweets(tweet)
             for reply in tweet.get_comments():
                 tree.replies.append(build_tree(reply))
             return tree
-        parentTweet = tweet.replied_to 
+        parentTweet = tweet.get_reply_to()  #type: ignore
         print(parentTweet)
         if parentTweet:
-            print('aa')
-            while parentTweet.replied_to:
-                parentTweet = parentTweet.replied_to
-            return build_tree(parentTweet)
+            print('Found parent tweet {}'.format(parentTweet))
+            while parentTweet.get_reply_to(): #type: ignore
+                parentTweet = parentTweet.get_reply_to() #type: ignore
+            return build_tree(parentTweet) #type: ignore
         
 
 
@@ -81,4 +80,4 @@ if __name__ == '__main__':
     #agent = Agent()
     notifications = agent.NewNotifications
     print(notifications)
-    print(notifications[0].original_tweet, notifications[0].is_reply)
+    print(agent.GetContextOfReply(notifications[0]))
