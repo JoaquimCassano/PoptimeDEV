@@ -6,11 +6,11 @@ log = [
      Como você é o back-end, suas respostas precisam ser muito específicas e precisas. Sua resposta pode ser exatamente "pass", caso não tenha nenhuma treta e nada de interessante pra postar, ou o seguinte json, para fazer o post:
      {
         "text":"🚨 TRETA: srProgrammer critica arquitetos de software, dizendo não serem programadores de verdade.",
-        "medias":["https://pbs.twimg.com/media/F64BSE7W8AABYON.jpg"]
-
+        "medias":["https://pbs.twimg.com/media/F64BSE7W8AABYON.jpg"],
+        "baseTweet":"https://twitter.com/srprogrammer/status/1713936653320753017"
      },
 
-     Explicando o json acima: Text é o texto do tweet, e medias um array com os urls das imagens. 
+     Explicando o json acima: Text é o texto do tweet, e medias um array com os urls das imagens necessárias. baseTweet é o tweet que será retweetado, que é o tweet sobre o que você postou, ou seja: O tweet da treta ou curiosidade. 
         Abaixo, segue um texto com as personalidades das principais pessoas da bolha dev, que você irá participar e receber tweets:
      
      - @onlyanerd2: Criador da choqueidabolha, é um dev python back-end de 13 anos, engraçado, porém meio da paz, não se mete muito em tretas.
@@ -72,9 +72,9 @@ def main():
             if confirm.lower().strip() == "y":
                 if type(data) == list:
                     for tweet in data:
-                        print(twitter.Post(tweet["text"], tweet["medias"]))
+                        print(twitter.Post(tweet["text"], tweet["medias"], tweet["baseTweet"].split("/")[-1]))
                 else:
-                    print(twitter.Post(data["text"] , data['medias']))
+                    print(twitter.Post(data["text"] , data['medias'], data['baseTweet'].split("/")[-1]))
         time.sleep(90)
 
 if __name__ == "__main__":

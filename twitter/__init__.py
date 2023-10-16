@@ -8,7 +8,7 @@ app:Twitter = Twitter("session")
 app.sign_in(secrets["twitter"]["login"], secrets["twitter"]["passwd"])
 
 def TimeLine():
-    return app.get_home_timeline(1).tweets
+    return app.get_home_timeline(pages=3).tweets
 
 
 def MyTweets():
@@ -33,7 +33,7 @@ def Post(text:str, medias:list[str], quote:None|str = None) -> int|tuple[int, st
             with open(f'temp{i}.jpg', 'wb') as f:
                 f.write(media_bytes)
             media_files.append(f'temp{i}.jpg')
-        app.create_tweet(text=text, files=media_files) # type: ignore
+        app.create_tweet(text=text, files=media_files, quote_of=quote) # type: ignore
         return 0
     except Exception as e:
         return 1, str(e)
@@ -42,5 +42,4 @@ def Post(text:str, medias:list[str], quote:None|str = None) -> int|tuple[int, st
             os.remove(media_file)
 
 if __name__ == "__main__":
-    print(TimeLine())
-    print(Post("Post via código, (SIM O PROJETO AINDA TÁ VIVO, POR INCRIVEL QUE PAREÇA)", ["https://pbs.twimg.com/media/F64BSE7W8AABYON.jpg"]))
+    print(Post("oi oi oi teste teste teste pra poptimedev ²", [], quote="https://twitter.com/onlyanerd2/status/1713997696540000723"))

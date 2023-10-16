@@ -20,7 +20,7 @@ class ArvoreTweets:
 
 class Agent: 
     def __init__(self, user:str='', password:str='') -> None:
-        self.client:Twitter = Twitter("session")
+        self.client:Twitter = Twitter("sessao")
         if user and password:
             self.client.sign_in(user, password)
         self.old_notifications = []
@@ -79,5 +79,4 @@ if __name__ == '__main__':
     agent = Agent(secrets['twitter']['login'], secrets['twitter']['passwd'])
     #agent = Agent()
     notifications = agent.NewNotifications
-    print(notifications)
     print(agent.GetContextOfReply(notifications[0]))
