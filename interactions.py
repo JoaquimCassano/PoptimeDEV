@@ -2,6 +2,9 @@ from tweety import Twitter
 from tweety.filters import SearchFilters
 from tweety.types.twDataTypes import Tweet
 from ai import AiResponse
+import time
+
+
 
 class ArvoreTweets:
     def __init__(self, parentTweet:Tweet) -> None:
@@ -56,19 +59,19 @@ class Agent:
         Returns:
             - ArvoreTweets: A tree with the parents. Starts in the root of the conversation (the post) and ends in the reply (the tweet arg)
         """
-        print('Called!')
-        def build_tree(tweet: Tweet) -> ArvoreTweets:
-            tree = ArvoreTweets(tweet)
-            for reply in tweet.get_comments():
-                tree.replies.append(build_tree(reply))
-            return tree
-        parentTweet = tweet.get_reply_to()  #type: ignore
-        print(parentTweet)
-        if parentTweet:
-            print('Found parent tweet {}'.format(parentTweet))
-            while parentTweet.get_reply_to(): #type: ignore
-                parentTweet = parentTweet.get_reply_to() #type: ignore
-            return build_tree(parentTweet) #type: ignore
+        TweetsList = []
+        parentTweet = tweet
+        while parentTweet.replied_to:
+            time.sleep(3)
+            TweetsList.append(parentTweet)
+            parentTweet = parentTweet.replied_to
+
+        TweetsList.reverse()
+        print(TweetsList)
+        Tree = ArvoreTweets(TweetsList.pop())        
+        for tweet in TweetsList:
+            Tree.replies.append(ArvoreTweets(tweet))
+        return Tree
         
 
 
@@ -79,4 +82,6 @@ if __name__ == '__main__':
     agent = Agent(secrets['twitter']['login'], secrets['twitter']['passwd'])
     #agent = Agent()
     notifications = agent.NewNotifications
-    print(agent.GetContextOfReply(notifications[0]))
+    print(notifications[1].text)
+    y = agent.GetContextOfReply(notifications[2]) #type:ignore
+    print(y)

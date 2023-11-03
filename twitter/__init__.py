@@ -8,7 +8,7 @@ app:Twitter = Twitter("session")
 app.sign_in(secrets["twitter"]["login"], secrets["twitter"]["passwd"])
 
 def TimeLine():
-    return app.get_home_timeline(pages=3).tweets
+    return app.get_home_timeline(pages=4).tweets
 
 
 def MyTweets():
@@ -42,4 +42,4 @@ def Post(text:str, medias:list[str], quote:None|str = None) -> int|tuple[int, st
             os.remove(media_file)
 
 if __name__ == "__main__":
-    print(Post("oi oi oi teste teste teste pra poptimedev ²", [], quote="https://twitter.com/onlyanerd2/status/1713997696540000723"))
+    print(Post("oi oi oi teste teste teste pra poptimedev dnv pq a api caiu", [], quote="https://twitter.com/onlyanerd2/status/1713997696540000723"))

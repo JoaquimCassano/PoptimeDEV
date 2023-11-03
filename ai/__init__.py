@@ -4,7 +4,7 @@ from gradio_client import Client
 import json ; secrets = json.load(open('secrets.json'))
 api = ocrspace.API(api_key=secrets['ocrspace'])
 
-openai.api_base = "https://api.naga.ac/v1"
+#openai.api_base = "https://api.naga.ac/v1"
 
 def Describe(url:str) -> tuple[str, str, str]:
     """
@@ -31,7 +31,7 @@ def Describe(url:str) -> tuple[str, str, str]:
     return (caption, text, url)
 
 def AiResponse(messages:list, model:Literal["gpt-3.5-turbo-0613", "gpt-4", "gpt-4-32k", "gpt-3.5-turbo-16k"]) -> str: # type: ignore
-    openai.api_key = secrets["naga"]
+    openai.api_key = secrets["openai"]
     resp = openai.ChatCompletion.create(
             model=model,
             messages=messages,

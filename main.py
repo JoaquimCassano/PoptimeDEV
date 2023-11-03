@@ -49,7 +49,7 @@ for index, i in enumerate(twitter.app.get_tweets("poptimedev")):
 def main():
     while True:
         tl = twitter.TimeLine()
-
+    
         formatted_tl = []
         for index, tweet in enumerate(tl):
             if index > 10:
@@ -72,9 +72,9 @@ def main():
             if confirm.lower().strip() == "y":
                 if type(data) == list:
                     for tweet in data:
-                        print(twitter.Post(tweet["text"], tweet["medias"], tweet["baseTweet"].split("/")[-1]))
+                        print(twitter.Post(tweet["text"], tweet["medias"], tweet["baseTweet"]))
                 else:
-                    print(twitter.Post(data["text"] , data['medias'], data['baseTweet'].split("/")[-1]))
+                    print(twitter.Post(data["text"] , data['medias'], data['baseTweet']))
         time.sleep(90)
 
 if __name__ == "__main__":
